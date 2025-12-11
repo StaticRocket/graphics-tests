@@ -1,25 +1,39 @@
-# Lightweight Render Example
+# Graphics Tests
 
-Heavily inspired by Eduardo Lima's
-[gpu-playground](https://github.com/elima/gpu-playground/), this attempts to act
-as the smallest demo of offscreen rendering.
+Various graphics related tests that do not currently have any other test mechanisms.
 
-This was also inspired by some of example code from Aaftab Munshi, Dan Ginsburg,
-and Dave Shreiner's [OpenGLES 2.0 Programming Guide
-](https://github.com/danginsburg/opengles3-book/blob/4ea81a7c8e4d447ce36a28a7a75b0fbbf11f484c/Chapter_2/Hello_Triangle/Hello_Triangle.c).
+## Structure of Repository
 
-Both works are good reference and should be utilized for more advanced examples.
+Each test has its own subdirectory, under the `src` directory. Provided within the subdirectory a `README` will be present,
+regarding what the test is and usage. It may also define new extra dependencies for that test, on top of the standard global
+ones for this repository.
 
-This project has adopted CC0 1.0 Universal so that others may use it as a
-starting point without attribution.
+## Standard Global Dependencies
 
-## Checking the output
+All tests with this repository at a minimum depend on the following:
+- GBM
+- EGL
+- GLESv2
 
-The application will currently attempt to render a 1920x1080 scene with
-RGBA8888. This will be dumped directly to an output binary file. If you wish to
-preview the file you can use the following imagemagick string to convert the
-output to png:
+## Build guide
+
+This repository utilizes the Meson build system.
+
+The user will need to specify which tests to build during the setup set of meson. All tests are considered class "feature", so they need to be explicitly enabled.
+The general syntax is `-D<name>=enabled`.
+
+Example:
 
 ```bash
-magick -depth 8 -size 1920x1080+0 rgba:out.bin -flip new.png
+meson setup <build_dir> -D lightweight-offscreen=enabled
 ```
+
+Following that, change directories to the `<build_dir>` and execute meson compile.
+
+Example:
+
+```bash
+meson compile
+```
+
+To enable all tests, set `-Dauto_features=enabled`.
