@@ -1,9 +1,9 @@
 project(
-  'lightweight-offscreen',
+  'Graphics Tests',
   'c',
   version : '0.0.1',
   license : 'CC0-1.0',
-  meson_version : '>= 0.47',
+  meson_version : '>= 1.1',
   default_options : ['c_std=gnu99', 'warning_level=2'],
 )
 
@@ -13,9 +13,6 @@ dep_gbm = dependency('gbm')
 dep_egl = dependency('egl')
 dep_gles2 = dependency('glesv2')
 
-executable(
-  'lightweight-offscreen',
-  'lightweight-offscreen.c',
-  dependencies : [ dep_gbm, dep_egl, dep_gles2, ],
-  install : true,
-)
+if get_option('lightweight-offscreen').enabled()
+  subdir('lightweight-offscreen')
+endif
