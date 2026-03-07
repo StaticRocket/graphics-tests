@@ -1,1 +1,2 @@
 option('lightweight-offscreen',   type: 'feature')
+option('program-cache',           type: 'feature')
